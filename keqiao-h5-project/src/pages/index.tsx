@@ -5,10 +5,11 @@ import { connect, fetch } from 'dva'
 import { List, Card, Layout, Table, Button } from 'antd';
 import { NavBar, Icon } from 'antd-mobile';
 import ImageViewer from 'react-wx-images-viewer';
+import { config } from '../../public/config'
+
 const { Content, Header } = Layout;
 
-const rootUrl = "http://192.168.10.245:6088/proxy6086/"
-const requesturl = "ServiceEngine/rest/services/CustomServer/getPumpEquipDataByGid"
+const requesturl = "/ServiceEngine/rest/services/CustomServer/getPumpEquipDataByGid"
 
 export default class DeviceRecord extends React.Component {
   constructor(props) {
@@ -26,7 +27,6 @@ export default class DeviceRecord extends React.Component {
 
   //初始化标题和数据信息
   componentDidMount() {
-    //setTitle('设备台账信息');
     var paramsArray = window.location.search.split('?');
     var parms;
     if (paramsArray.length > 1) {
@@ -96,7 +96,7 @@ export default class DeviceRecord extends React.Component {
                 if (imgArr[i] == '' || imgArr[i].length == 0) {
                   continue;
                 }
-                var tempImgStr = rootUrl.concat(imgArr[i]);
+                var tempImgStr = config.rootUrl.concat(imgArr[i]);
                 tempImgArr.push(tempImgStr);
               }
             }
