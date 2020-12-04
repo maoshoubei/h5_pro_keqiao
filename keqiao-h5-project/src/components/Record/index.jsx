@@ -25,10 +25,10 @@ export default class Record extends React.Component {
   render() {
     return (
       <div>
-        {  (this.props.items) ? Object.keys(this.props.items).forEach(key => {
+        {Object.keys(this.props.items).forEach(key => {
           var value = this.props.items[key];
           return this.getItem(key, value)
-        }) : null}
+        }) }
       </div>
     )
   }
