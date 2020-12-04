@@ -7,11 +7,11 @@ export default defineConfig({
   routes: [
     { path: '/', component: '@/pages/index' },
   ],
-  proxy:{
-    "/ServiceEngine/rest/services/CustomServer" :{
+  proxy: {
+    "/ServiceEngine/rest/services/CustomServer": {
       target: 'http://192.168.10.245:6088/proxy6086',
       changeOrigin: true,
       pathRewrite: { '^/ServiceEngine/rest/services/CustomServe': '/ServiceEngine/rest/services/CustomServe' },
     }
-  }
+  },
 });
