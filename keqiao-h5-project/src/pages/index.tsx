@@ -1,9 +1,8 @@
 import React from 'react';
 import { Toast } from 'antd-mobile'
-import { setTitle } from '../events/index';
 import { connect, fetch } from 'dva'
 import { List, Card, Layout, Table, Button } from 'antd';
-import { NavBar, Icon } from 'antd-mobile';
+import { NavBar } from 'antd-mobile';
 import ImageViewer from 'react-wx-images-viewer';
 import { config } from '../../public/config'
 
@@ -49,7 +48,6 @@ export default class DeviceRecord extends React.Component {
 
   // 打开某个图片
   openViewer = (index) => {
-    //const url = window.location.protocol + '//' + window.location.host;
     const { imgs } = this.state;
     const imgList1 = this.state.imgList[index];
     this.setState({ index, isOpen: true, imgList1 });
@@ -67,7 +65,7 @@ export default class DeviceRecord extends React.Component {
 
   init = async (params) => {
     Toast.loading('加载中...', 0, () => { }, true);
-    await fetch(requesturl + '?' + params)
+    await fetch('HostUrl' + requesturl + '?' + params)
       .then(res => res.json())
       .then(data => {
         Toast.hide();
@@ -79,10 +77,6 @@ export default class DeviceRecord extends React.Component {
         for (var name in data.features) {
           var temp;
           if ("maintenanceRecords" == name) {
-            temp = {
-              key: "养护记录",
-              value: ""
-            }
             tempMaintainRecordArray = data.features[name]
           } else {
             if (!this.isChinese(name)) {
@@ -96,7 +90,8 @@ export default class DeviceRecord extends React.Component {
                 if (imgArr[i] == '' || imgArr[i].length == 0) {
                   continue;
                 }
-                var tempImgStr = config.rootUrl.concat(imgArr[i]);
+                //var tempImgStr = config.rootUrl.concat(imgArr[i]);
+                var tempImgStr = 'HostUrl' + '/' + imgArr[i]
                 tempImgArr.push(tempImgStr);
               }
             }
@@ -104,8 +99,8 @@ export default class DeviceRecord extends React.Component {
               key: name,
               value: data.features[name]
             }
+            tempDeviceBasicArray.push(temp);
           }
-          tempDeviceBasicArray.push(temp);
         }
 
         var tempRecordArry = [];
@@ -148,6 +143,9 @@ export default class DeviceRecord extends React.Component {
       <Layout>
         <NavBar style={{ position: 'fixed', width: '100%', zIndex: 1 }} mode="dark">{'设备台账信息'}</NavBar>
         <Content style={{ position: 'relative', marginTop: 48 }}>
+          <div style={{ width: '100%', float: 'left', paddingTop: '8px', paddingLeft: '16px', paddingRight: '16px', paddingBottom: '8px' }}>
+            <h3 style={{ width: '40%', float: 'left', color: "blue" }} >台账信息</h3>
+          </div>
           <List size="small" bordered dataSource={items} locale={{ emptyText: '暂无数据' }}
             renderItem={item => (
               <List.Item >
@@ -168,8 +166,11 @@ export default class DeviceRecord extends React.Component {
               </List.Item>
             )}
           />
+          <div style={{ width: '100%', float: 'left', paddingTop: '8px', paddingLeft: '16px', paddingRight: '16px', paddingBottom: '8px' }}>
+            <h3 style={{ width: '40%', float: 'left', color: "blue" }}>养护记录</h3>
+          </div>
           <div style={{ position: 'relative' }}>
-            <List size="large" dataSource={maintainrecords} locale={{ emptyText: '暂无数据' }}
+            <List size="large" dataSource={maintainrecords} bordered={false} locale={{ emptyText: '暂无数据' }}
               renderItem={item => (
                 <List.Item style={{ backgroundColor: '#f6f6f6' }}>
                   <Card style={{ width: '100%' }} type="inner">
