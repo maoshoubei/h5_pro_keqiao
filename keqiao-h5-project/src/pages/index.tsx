@@ -141,8 +141,8 @@ export default class DeviceRecord extends React.Component {
     const { items, maintainrecords, imgs = [], imgList, isOpen, index } = this.state;
     return (
       <Layout>
-        <NavBar style={{ position: 'fixed', width: '100%', zIndex: 1 }} mode="dark">{'设备台账信息'}</NavBar>
-        <Content style={{ position: 'relative', marginTop: 48 }}>
+        {/* <NavBar style={{ position: 'fixed', width: '100%', zIndex: 1 }} mode="dark">{'设备台账信息'}</NavBar> */}
+        <Content style={{ position: 'relative', marginTop: 1 }}>
           <div style={{ width: '100%', float: 'left', paddingTop: '8px', paddingLeft: '16px', paddingRight: '16px', paddingBottom: '8px' }}>
             <h3 style={{ width: '40%', float: 'left', color: "blue" }} >台账信息</h3>
           </div>
